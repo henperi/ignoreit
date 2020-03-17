@@ -5,17 +5,28 @@ const ignoreItExtension = require('./src');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	console.log('activeTextEditor', vscode.window.activeTextEditor.document.fileName)
+	const disposable = vscode.commands.registerCommand('extension.ignore_it', function () {
+    ignoreItExtension()
+	});
 
-	let disposable = vscode.commands.registerCommand('extension.ignore_it', function () {
-    ignoreItExtension();
+	const watcher = vscode.workspace.createFileSystemWatcher("**/*.{*}");
+
+	watcher.onDidChange((uri) => {
+		const uriArray = uri.toString().split('/');
+		const fileChanged = uriArray[uriArray.length - 1];
+
+		if (fileChanged === '.env.example') {
+			return false;
+		} else {
+			ignoreItExtension()
+		}
 	});
 
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(watcher);
 }
 exports.activate = activate;
 
-// this method is called when your extension is deactivated
 function deactivate() {}
 
 module.exports = {

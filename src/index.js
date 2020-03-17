@@ -4,8 +4,8 @@ const path = require('path');
 
 const projectWorkspace = vscode.workspace.workspaceFolders[0].uri.toString().split(':')[1];
 const workbenchConfig = vscode.workspace.getConfiguration('ignore_it')
-const ignoreItArray = workbenchConfig.get('array')
-const gitIgnoreContent = ignoreItArray
+const ignoreItArray = workbenchConfig.get('array');
+const gitIgnoreContent = ignoreItArray;
 
 const extension = () => {
   fs.readdir(projectWorkspace, (err, files) => {
@@ -14,7 +14,6 @@ const extension = () => {
     }
 
     if (files.find(file => file === '.git')) {
-      vscode.window.showInformationMessage('ignore_it extension is activated');
       const filesToIgnore = files.filter(file => gitIgnoreContent.indexOf(file) !== -1)
 
       if(filesToIgnore.length) {
@@ -24,9 +23,9 @@ const extension = () => {
 
           try{
             fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentArray);
-            vscode.window.showInformationMessage('symlinked .env <=> .env.example');
+            return true;
           } catch (e){
-            console.log("Cannot write .env.example file ", e);
+            console.log("Cannot write .env.example file: ", e);
           }
         }
         if(files.find(file => file === '.gitignore')) {
@@ -40,7 +39,7 @@ const extension = () => {
                   if(err) {
                     return vscode.window.showErrorMessage(`Error occurred: ${err}`);
                   }
-                  vscode.window.showInformationMessage(`${file} added to .gitignore`);
+                  return vscode.window.showInformationMessage(`${file} added to .gitignore`);
                 })
               }
             })
@@ -52,18 +51,17 @@ const extension = () => {
             if(err) {
               return vscode.window.showErrorMessage('Failed to create .gitinore file');
             }
-            vscode.window.showInformationMessage(`${filesToIgnore.join(', ')} added to .gitignore`);
+            return vscode.window.showInformationMessage(`${filesToIgnore.join(', ')} added to .gitignore`);
           });
         }
       } else {
-        console.log('ignore_it extension has nothing to ignore');
-        return true
+        return true;
       }
     } else {
-      vscode.window.showInformationMessage('This is not a git repo. Run "git init" on your terminal');
-      return true
+      vscode.window.showInformationMessage('This is not a git repo');
+      return true;
     }
   })
 }
 
-module.exports = extension
+module.exports = extension;

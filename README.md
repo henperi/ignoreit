@@ -1,16 +1,15 @@
 # ignore_it
 
-This extension enables you to automatically ignore files and folders in your project workspace.
+This extension helps you to automatically ignore files and folders in your project workspace.
 
 ## Features
 
-Go to your VSCODE settings.json file and add the key-value pair you wish to track in your `.gitignore` file. For example
-```json
-"ignore_it.array": [".env", "node_modules", "coverage"]
-```
-The key should be `ignore_it.array`, while the value should be an array of files or folders you wish to ignore.
-
-\!\[feature X\]\(images/feature-x.png\)
+* The key should be `ignore_it.array`, while the value should be an array of files or folders you wish to ignore.
+* If any of the files or foilders specified in the array exists in your project directory, `ignore_it` extension will add it to the `.gitignore` file.
+* If `.gitigore` file does not exist in your project directory, `ignore_it` extension will create a `.gitignore` file and fill in the files you're to ignore.
+* The `.gitignore` content will be the files in your project directory that corresponds to the `ignore_it.array`
+* You can manually add other files to the `.gitignore` file. New files are always appended to the existing ones.
+* If `.env` file is part of the files in your directory, `ignore_it` extension will create a `.env.example` file and fill it with the the contents of your .env file. Only variables are filled in, values are left behind. The `.env` and `.env.example` files will always be in sync.
 
 ## Requirements
 
@@ -18,18 +17,14 @@ This extension works when you're working in a git repository on VSCODE.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+This extension requires that `ignore_it.array` key be added to your VSCODE `settings.json` file and value should be an array of files you wish to automatically add to `.gitignore` file in all your project (if the files or folders exist in your project). See example below
+```json
+"ignore_it.array": [".env", "node_modules", "coverage"]
+```
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+No known issues
 
 ## Release Notes
 
@@ -37,17 +32,10 @@ Initial release
 
 ### 1.0.0
 
-## Working with Markdown
+### Contact
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+* [LinkedIn](https://www.linkedin.com/in/marcdomain)
+* [GitHub](https://www.github.com/marcdomain)
+* [Twitter](https://www.twitter.com/marcdomain)
 
 **Enjoy!**

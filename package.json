@@ -3,7 +3,7 @@
 	"displayName": "ignore_it",
 	"description": "automatically ignore files and folders",
 	"version": "1.0.0",
-	"publisher": "marcdomain)",
+	"publisher": "marcdomain",
 	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
 	"engines": {
 		"vscode": "^1.42.0"
@@ -31,7 +31,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.ignore_it"
+		"*"
 	],
 	"main": "./extension.js",
 	"contributes": {
